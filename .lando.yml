@@ -1,0 +1,31 @@
+name: lando-start
+recipe: wordpress
+config:
+  php: 8.2
+  composer_version: 2
+  webroot: site/web
+  database: mariadb
+  ssl: false
+  via: nginx
+  xdebug: false
+env_file:
+  - .env.lando
+services:
+  node:
+    type: node:23
+  mailhog:
+    type: mailhog
+    hogfrom:
+      - appserver
+  pma:
+    type: phpmyadmin
+    hosts:
+      - database
+proxy:
+  # appserver_nginx or appserver for apache
+  appserver_nginx:
+    - lando-start.lndo.site
+  mailhog:
+    - mail.lando-start.lndo.site
+  pma:
+    - pma.lando-start.lndo.site

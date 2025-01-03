@@ -1,0 +1,98 @@
+tooling:
+  install-bedrock:
+    service: appserver
+    description: Installs WordPress (Bedrock) using composer.
+    cmd: mkdir ./site && composer create-project roots/bedrock ./site
+  create-env:
+    service: appserver
+    description: Copies .env.example and creates the file.
+    cmd: 
+      - "> .env"
+      - echo "DB_USER='$DB_USER'" >> .env
+      - echo "DB_PASSWORD='$DB_PASSWORD'" >> .env
+      - echo "DB_HOST='$DB_HOST'" >> .env
+      - echo "DB_PREFIX='$DB_PREFIX'" >> .env
+      - echo "WP_ENV='$WP_ENV'" >> .env
+      - echo "WP_HOME='$WP_HOME/'" >> .env
+      - echo "WP_SITEURL='"${WP_HOME}/wp"'" >> .env
+      - echo "AUTH_KEY='$AUTH_KEY'" >> .env
+      - echo "SECURE_AUTH_KEY='$SECURE_AUTH_KEY'" >> .env
+      - echo "LOGGED_IN_KEY='$LOGGED_IN_KEY'" >> .env
+      - echo "NONCE_KEY='$NONCE_KEY'" >> .env
+      - echo "AUTH_SALT='$AUTH_SALT'" >> .env
+      - echo "SECURE_AUTH_SALT='$SECURE_AUTH_SALT'" >> .env
+      - echo "LOGGED_IN_SALT='$LOGGED_IN_SALT'" >> .env
+      - echo "NONCE_SALT='$NONCE_SALT'" >> .env
+    dir: /app/site
+  install-wordpress:
+    service: appserver
+    description: Installs WordPress via WP-CLI.
+    options:
+      url:
+        passthrough: true
+        describe: "The url for the website (Ex: lando-start.lndo.site)"
+        interactive:
+          type: input
+          message: "The url for the website (Ex: lando-start.lndo.site)"
+      title:
+        passthrough: true
+        describe: The title of the website
+        interactive:
+          type: input
+          message: The title of the website?
+      admin_email:
+        passthrough: true
+        describe: The admin email address.
+        interactive:
+          type: input
+          message: The admin email address?
+      admin_user:
+        passthrough: true
+        describe: The admin user.
+        interactive:
+          type: input
+          message: The admin user?
+          default: hugo.silva
+      admin_password:
+        passthrough: true
+        describe: The admin password.
+        interactive:
+          type: input
+          message: The admin password?
+      locale:
+        passthrough: true
+        describe: The locale/language for the installation.
+        interactive:
+          type: input
+          message: The locale/language for the installation?
+          default: en_US
+    cmd:
+     - wp core install --skip-email 
+    dir: /app/site
+  install-sage:
+    service: appserver
+    description: Creates a new theme based on sage's theme.
+    cmd: 
+      - "cd /app/site/web/app/themes && composer create-project roots/sage $THEME_NAME"
+      - cd site && composer require roots/acorn
+      - cd site && wp theme activate $THEME_NAME
+  theme-build:
+    service: node
+    description: Builds the resources.
+    cmd: 
+      - "cd /app/site/web/app/themes/$THEME_NAME && yarn install"
+      - "cd /app/site/web/app/themes/$THEME_NAME && yarn build"
+  npm:
+    service: node
+  node:
+    service: node
+  yarn:
+    service: node
+  php:
+    service: appserver
+  composer:
+    service: appserver
+    dir: /app/site
+  wp:
+    services: appserver
+    dir: /app/site
