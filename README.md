@@ -1,8 +1,8 @@
-# Lando Starter Project
+# Lando WordPress Starter Project
 
-A starter project for Wordpress local development using [Lando](https://lando.dev/). It bootstrap [Bedrock](https://roots.io/bedrock/) and [Sage](https://roots.io/sage/) into the project with a few simple commands.
+A starter project for Wordpress local development using [Lando](https://lando.dev/). It bootstraps [Bedrock](https://roots.io/bedrock/) and [Sage](https://roots.io/sage/) into the project with a few simple commands.
 
-## What does it do?
+## What does it have?
 
 This project uses Lando in order to set up the local environment on your machine with:
 
