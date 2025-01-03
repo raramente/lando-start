@@ -26,6 +26,6 @@ proxy:
   appserver_nginx:
     - lando-start.lndo.site
   mailhog:
-    - mail.lando-start.lndo.site
+    - mailhog.lando-start.lndo.site
   pma:
     - pma.lando-start.lndo.site
