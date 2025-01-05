@@ -2,7 +2,7 @@ tooling:
   install-bedrock:
     service: appserver
     description: Installs WordPress (Bedrock) using composer.
-    cmd: mkdir ./site && composer create-project roots/bedrock ./site
+    cmd: mkdir -p ./site && composer create-project roots/bedrock ./site
   create-env:
     service: appserver
     description: Copies .env.example and creates the file.
