@@ -10,7 +10,7 @@ tooling:
       - "> .env"
       - echo "DB_USER='$DB_USER'" >> .env
       - echo "DB_PASSWORD='$DB_PASSWORD'" >> .env
-      - echo "DB_HOST='$DB_HOST'" >> .env
+      - echo "DB_HOST='database'" >> .env
       - echo "DB_PREFIX='$DB_PREFIX'" >> .env
       - echo "WP_ENV='$WP_ENV'" >> .env
       - echo "WP_HOME='$WP_HOME/'" >> .env
