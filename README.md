@@ -73,3 +73,7 @@ lando composer require "wpackagist-plugin/contact-form-7":"6.0.2"
 ```bash
 lando wp user list
 ```
+
+## Know more
+
+Please read more about it on [My Blog](https://hugosilva.me/wordpress-local-environment-with-lando/)
